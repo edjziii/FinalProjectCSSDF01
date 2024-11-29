@@ -73,7 +73,7 @@ namespace EmployeeManagementSystem
 
         private void btn_recruitment_Click(object sender, EventArgs e)
         {
-
+            Application.Exit();
         }
 
         private void btn_exit_Click(object sender, EventArgs e)
