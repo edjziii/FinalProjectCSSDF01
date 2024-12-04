@@ -8,23 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace EmployeeManagementSystem
-{
-    public partial class Form1 : Form
+{    
+    public partial class EmployeeInterface : Form
     {
         private Button activeButton; // Keep track of the active button
         private Color defaultButtonColor; // Store the original button color
         private Color defaultButtonForeColor; // Store the original button text color
 
-        public Form1()
+        public EmployeeInterface()
         {
             InitializeComponent();
 
             // Store the original button color and text color
-            defaultButtonColor = btn_recent.BackColor;
-            defaultButtonForeColor = btn_recent.ForeColor;
+            defaultButtonColor = btn_employee.BackColor;
+            defaultButtonForeColor = btn_employee.ForeColor;
         }
-
         private void HighlightButton(Button button)
         {
             if (activeButton != null)
@@ -44,36 +44,51 @@ namespace EmployeeManagementSystem
 
         private void btn_home_Click(object sender, EventArgs e)
         {
-
+            panel_home.Visible = true;
+            panel_employee.Visible = false;
+            panel_attendance.Visible = false;
+            panel_accounting.Visible = false;
+            panel_recruitment.Visible = false;
         }
 
         private void btn_recent_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
-            panel_recent.Visible = true;
+            panel_home.Visible = false;
+            panel_employee.Visible = true;
             panel_attendance.Visible = false;
             panel_accounting.Visible = false;
+            panel_recruitment.Visible = false;
         }
 
         private void btn_attendance_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
-            panel_recent.Visible = false;
+            panel_home.Visible = false;
+            panel_employee.Visible = false;
             panel_attendance.Visible = true;
             panel_accounting.Visible = false;
+            panel_recruitment.Visible = false;
         }
 
-        private void btn_accounting_Click(object sender, EventArgs e)
+        private void btn_termination_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
-            panel_recent.Visible = false;
+            panel_home.Visible = false;
+            panel_employee.Visible = false;
             panel_attendance.Visible = false;
             panel_accounting.Visible = true;
+            panel_recruitment.Visible = false;
         }
 
         private void btn_recruitment_Click(object sender, EventArgs e)
         {
-            
+            HighlightButton((Button)sender);
+            panel_home.Visible = false;
+            panel_employee.Visible = false;
+            panel_attendance.Visible = false;
+            panel_accounting.Visible = false;
+            panel_recruitment.Visible = true;
         }
 
         private void btn_exit_Click(object sender, EventArgs e)
