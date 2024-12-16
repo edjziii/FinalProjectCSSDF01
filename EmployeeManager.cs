@@ -16,6 +16,7 @@ namespace EmployeeManagementSystem
         private Button activeButton; // Keep track of the active button
         private Color defaultButtonColor; // Store the original button color
         private Color defaultButtonForeColor; // Store the original button text color
+        private EmployeeController _controller;
 
         public EmployeeInterface()
         {
@@ -24,6 +25,8 @@ namespace EmployeeManagementSystem
             // Store the original button color and text color
             defaultButtonColor = btn_employee.BackColor;
             defaultButtonForeColor = btn_employee.ForeColor;
+            _controller = new EmployeeController();
+            LoadEmployeeData();
         }
         private void HighlightButton(Button button)
         {
@@ -94,6 +97,74 @@ namespace EmployeeManagementSystem
         private void btn_exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void LoadEmployeeData()
+        {
+            var employees = _controller.GetEmployees();
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = employees;
+        }
+
+        private void btnUpdateEmployee_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                // Get the selected employee's ID
+                var selectedRow = dataGridView1.SelectedRows[0];
+                int employeeId = (int)selectedRow.Cells["Id"].Value;
+
+                // Get the updated name from the TextBox
+                string updatedName = txtEmployeeName.Text;
+
+                if (!string.IsNullOrWhiteSpace(updatedName))
+                {
+                    // Create an EmployeeModel object with updated data
+                    var updatedEmployee = new EmployeeModel
+                    {
+                        Id = employeeId,
+                        Name = updatedName
+                    };
+
+                    // Call the controller to update the database
+                    _controller.UpdateEmployee(updatedEmployee);
+                    MessageBox.Show("Employee updated successfully!");
+
+                    // Refresh the data grid
+                    LoadEmployeeData();
+                }
+                else
+                {
+                    MessageBox.Show("Employee name cannot be empty.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select an employee to update.");
+            }
+            LoadEmployeeData();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            var searchName = txtSearchName.Text; // Assume a TextBox named txtSearchName for search input
+            if (!string.IsNullOrWhiteSpace(searchName))
+            {
+                var filteredEmployees = _controller.SearchEmployeesByName(searchName);
+                dataGridView1.DataSource = null;
+                dataGridView1.DataSource = filteredEmployees;
+            }
+            else
+            {
+                MessageBox.Show("Please enter a name to search.");
+            }
+        }
+
+        private void btnClearSearch_Click(object sender, EventArgs e)
+        {
+            txtSearchName.Clear();
+            txtEmployeeName.Clear();
+            LoadEmployeeData(); // Reload all employees
         }
     }
 }

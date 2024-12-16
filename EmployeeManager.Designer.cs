@@ -28,7 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeInterface));
             this.panel_employee = new System.Windows.Forms.Panel();
+            this.btnClearSearch = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.txtSearchName = new System.Windows.Forms.TextBox();
+            this.btnUpdateEmployee = new System.Windows.Forms.Button();
+            this.txtEmployeeName = new System.Windows.Forms.TextBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel_navigation = new System.Windows.Forms.Panel();
             this.btn_recruitment = new System.Windows.Forms.Button();
             this.btn_employee = new System.Windows.Forms.Button();
@@ -42,6 +49,8 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel_home = new System.Windows.Forms.Panel();
             this.panel_recruitment = new System.Windows.Forms.Panel();
+            this.panel_employee.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel_navigation.SuspendLayout();
             this.MainPanel.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -50,10 +59,71 @@
             // panel_employee
             // 
             this.panel_employee.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(122)))), ((int)(((byte)(178)))), ((int)(((byte)(211)))));
+            this.panel_employee.Controls.Add(this.btnClearSearch);
+            this.panel_employee.Controls.Add(this.btnSearch);
+            this.panel_employee.Controls.Add(this.txtSearchName);
+            this.panel_employee.Controls.Add(this.btnUpdateEmployee);
+            this.panel_employee.Controls.Add(this.txtEmployeeName);
+            this.panel_employee.Controls.Add(this.dataGridView1);
             this.panel_employee.Location = new System.Drawing.Point(387, 12);
             this.panel_employee.Name = "panel_employee";
             this.panel_employee.Size = new System.Drawing.Size(722, 596);
             this.panel_employee.TabIndex = 4;
+            // 
+            // btnClearSearch
+            // 
+            this.btnClearSearch.Location = new System.Drawing.Point(73, 121);
+            this.btnClearSearch.Name = "btnClearSearch";
+            this.btnClearSearch.Size = new System.Drawing.Size(100, 23);
+            this.btnClearSearch.TabIndex = 5;
+            this.btnClearSearch.Text = "Clear Search";
+            this.btnClearSearch.UseVisualStyleBackColor = true;
+            this.btnClearSearch.Click += new System.EventHandler(this.btnClearSearch_Click);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(180, 91);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 4;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // txtSearchName
+            // 
+            this.txtSearchName.Location = new System.Drawing.Point(73, 93);
+            this.txtSearchName.Name = "txtSearchName";
+            this.txtSearchName.Size = new System.Drawing.Size(100, 22);
+            this.txtSearchName.TabIndex = 3;
+            // 
+            // btnUpdateEmployee
+            // 
+            this.btnUpdateEmployee.Location = new System.Drawing.Point(179, 61);
+            this.btnUpdateEmployee.Name = "btnUpdateEmployee";
+            this.btnUpdateEmployee.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdateEmployee.TabIndex = 2;
+            this.btnUpdateEmployee.Text = "Update";
+            this.btnUpdateEmployee.UseVisualStyleBackColor = true;
+            this.btnUpdateEmployee.Click += new System.EventHandler(this.btnUpdateEmployee_Click);
+            // 
+            // txtEmployeeName
+            // 
+            this.txtEmployeeName.Location = new System.Drawing.Point(73, 61);
+            this.txtEmployeeName.Name = "txtEmployeeName";
+            this.txtEmployeeName.Size = new System.Drawing.Size(100, 22);
+            this.txtEmployeeName.TabIndex = 1;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(260, 15);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(447, 569);
+            this.dataGridView1.TabIndex = 0;
             // 
             // panel_navigation
             // 
@@ -164,7 +234,7 @@
             // btn_home
             // 
             this.btn_home.AutoSize = true;
-            this.btn_home.BackgroundImage = global::EmployeeManagementSystem.Properties.Resources.Logo_CS;
+            this.btn_home.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_home.BackgroundImage")));
             this.btn_home.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btn_home.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_home.Location = new System.Drawing.Point(14, 14);
@@ -223,6 +293,9 @@
             this.Controls.Add(this.MainPanel);
             this.Name = "EmployeeInterface";
             this.Text = "EMPLOYEE MANAGEMENT SYSTEM";
+            this.panel_employee.ResumeLayout(false);
+            this.panel_employee.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel_navigation.ResumeLayout(false);
             this.MainPanel.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
@@ -246,6 +319,12 @@
         private System.Windows.Forms.Panel panel_home;
         private System.Windows.Forms.Panel panel_recruitment;
         private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.TextBox txtEmployeeName;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btnUpdateEmployee;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.TextBox txtSearchName;
+        private System.Windows.Forms.Button btnClearSearch;
     }
 }
 

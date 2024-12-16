@@ -99,17 +99,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EmployeeInterface.cs">
+    <Compile Include="Manager\EmployeeController.cs" />
+    <Compile Include="DBHelper\DatabaseHelper.cs" />
+    <Compile Include="EmployeeManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EmployeeInterface.Designer.cs">
-      <DependentUpon>EmployeeInterface.cs</DependentUpon>
+    <Compile Include="EmployeeManager.Designer.cs">
+      <DependentUpon>EmployeeManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="EmployeeModel.cs" />
+    <Compile Include="Model\EmployeeModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="EmployeeInterface.resx">
-      <DependentUpon>EmployeeInterface.cs</DependentUpon>
+    <EmbeddedResource Include="EmployeeManager.resx">
+      <DependentUpon>EmployeeManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -121,6 +123,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Model\packages.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -136,7 +139,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Logo_CS.png" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
