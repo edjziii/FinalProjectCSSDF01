@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace EmployeeManagementSystem
 {
@@ -53,6 +54,25 @@ namespace EmployeeManagementSystem
                 var table = new DataTable();
                 adapter.Fill(table);
                 return table;
+            }
+        }
+
+        public int ExecuteNonQueryWithParameters(string query, Dictionary<string, object> parameters)
+        {
+            using (var connection = new MySqlConnection(_connectionString))
+            using (var command = new MySqlCommand(query, connection))
+            {
+                // Add parameters to the command
+                foreach (var parameter in parameters)
+                {
+                    command.Parameters.AddWithValue(parameter.Key, parameter.Value);
+                }
+
+                // Open the connection
+                connection.Open();
+
+                // Execute the query and return the number of rows affected
+                return command.ExecuteNonQuery();
             }
         }
 
