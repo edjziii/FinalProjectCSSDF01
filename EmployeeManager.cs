@@ -52,6 +52,7 @@ namespace EmployeeManagementSystem
             panel_view.Visible = false;
             panel_terminate.Visible = false;
             panel_new.Visible = false;
+            LoadEmployeeData();
         }
 
         private void btn_recent_Click(object sender, EventArgs e)
@@ -62,6 +63,7 @@ namespace EmployeeManagementSystem
             panel_view.Visible = false;
             panel_terminate.Visible = false;
             panel_new.Visible = false;
+            LoadEmployeeData();
         }
 
         private void btn_attendance_Click(object sender, EventArgs e)
@@ -72,6 +74,7 @@ namespace EmployeeManagementSystem
             panel_view.Visible = true;
             panel_terminate.Visible = false;
             panel_new.Visible = false;
+            LoadEmployeeData();
         }
 
         private void btn_termination_Click(object sender, EventArgs e)
@@ -82,6 +85,7 @@ namespace EmployeeManagementSystem
             panel_view.Visible = false;
             panel_terminate.Visible = true;
             panel_new.Visible = false;
+            LoadEmployeeData();
         }
 
         private void btn_recruitment_Click(object sender, EventArgs e)
@@ -92,6 +96,7 @@ namespace EmployeeManagementSystem
             panel_view.Visible = false;
             panel_terminate.Visible = false;
             panel_new.Visible = true;
+            LoadEmployeeData();
         }
 
         private void btn_exit_Click(object sender, EventArgs e)
@@ -114,42 +119,63 @@ namespace EmployeeManagementSystem
 
         private void btnUpdateEmployee_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0)
+            try
             {
-                // Get the selected employee's ID
-                var selectedRow = dataGridView1.SelectedRows[0];
-                int employeeId = (int)selectedRow.Cells["Id"].Value;
-
-                // Get the updated name from the TextBox
-                string updatedName = txtEmployeeName.Text;
-
-                if (!string.IsNullOrWhiteSpace(updatedName))
+                // Validate input fields
+                if (string.IsNullOrWhiteSpace(update_id.Text) ||
+                    string.IsNullOrWhiteSpace(update_name.Text) ||
+                    string.IsNullOrWhiteSpace(update_email.Text) ||
+                    string.IsNullOrWhiteSpace(update_position.Text))
                 {
-                    // Create an EmployeeModel object with updated data
-                    var updatedEmployee = new EmployeeModel
-                    {
-                        Id = employeeId,
-                        Name = updatedName
-                    };
+                    MessageBox.Show("All fields must be filled out before updating.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-                    // Call the controller to update the database
-                    _controller.UpdateEmployee(updatedEmployee);
-                    MessageBox.Show("Employee updated successfully!");
+                // Parse employee Id
+                if (!int.TryParse(update_id.Text, out int employeeId))
+                {
+                    MessageBox.Show("Invalid ID. Please enter a valid numerical ID.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-                    // Refresh the data grid
-                    LoadEmployeeData();
+                // Create an EmployeeModel object with updated data
+                var updatedEmployee = new EmployeeModel
+                {
+                    Id = employeeId,
+                    Name = update_name.Text,
+                    Email = update_email.Text,
+                    Position = update_position.Text
+                };
+
+                // Call the controller to update the database
+                bool success = _controller.UpdateEmployee(updatedEmployee);
+
+                if (success)
+                {
+                    MessageBox.Show("Employee updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadEmployeeData(); // Refresh the DataGridView
+                    ClearUpdateFields(); // Clear the TextBoxes
                 }
                 else
                 {
-                    MessageBox.Show("Employee name cannot be empty.");
+                    MessageBox.Show("Failed to update the employee. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please select an employee to update.");
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            LoadEmployeeData();
         }
+
+        // Method to clear the update TextBoxes
+        private void ClearUpdateFields()
+        {
+            update_id.Clear();
+            update_name.Clear();
+            update_email.Clear();
+            update_position.Clear();
+        }
+
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
@@ -169,7 +195,6 @@ namespace EmployeeManagementSystem
         private void btnClearSearch_Click(object sender, EventArgs e)
         {
             txtSearchName.Clear();
-            txtEmployeeName.Clear();
             LoadEmployeeData(); // Reload all employees
         }
 

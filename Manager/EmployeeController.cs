@@ -36,16 +36,20 @@ namespace EmployeeManagementSystem
 
         // Add a new employee to the database
 
-        public void UpdateEmployee(EmployeeModel employee)
+        public bool UpdateEmployee(EmployeeModel employee)
         {
-            var query = "UPDATE Employees SET Name = @Name WHERE Id = @Id";
+            var query = "UPDATE Employees SET Name = @Name, Email = @Email, Position = @Position WHERE Id = @Id";
             var parameters = new Dictionary<string, object>
     {
+        { "@Id", employee.Id },
         { "@Name", employee.Name },
-        { "@Id", employee.Id }
+        { "@Email", employee.Email },
+        { "@Position", employee.Position }
     };
-            _dbHelper.ExecuteQueryWithParameters(query, parameters);
+
+            return _dbHelper.ExecuteNonQueryWithParameters(query, parameters) > 0;
         }
+
 
         public List<EmployeeModel> SearchEmployeesByName(string name)
         {
